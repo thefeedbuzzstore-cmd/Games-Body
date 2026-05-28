@@ -751,7 +751,13 @@ Please generate an extreme high-quality, professional, gaming intelligence repor
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = path.join(process.cwd(), "dist");
+    let distPath = path.join(process.cwd(), "dist");
+    if (!fs.existsSync(distPath)) {
+      distPath = path.join(__dirname, "dist");
+    }
+    if (!fs.existsSync(distPath)) {
+      distPath = path.join(__dirname, "../dist");
+    }
     
     // Intercept template requests for premium dynamic pre-rendered organic SEO
     app.use(express.static(distPath, { index: false }));

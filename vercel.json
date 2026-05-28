@@ -1,14 +1,10 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/index.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": "dist/**"
-      }
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": "dist/**"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/assets/(.*)",
