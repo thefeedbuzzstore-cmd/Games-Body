@@ -4,6 +4,10 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Elevate gray palette brightness for contrast ratio requirements on dark themes */
+  --color-gray-400: #d1d5db; /* high contrast bright gray */
+  --color-gray-500: #9ca3af; /* high contrast medium gray */
 }
 
 /* Custom glow animations and aesthetic scrollbars */

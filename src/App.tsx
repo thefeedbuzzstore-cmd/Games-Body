@@ -640,11 +640,13 @@ export default function App() {
               {/* Live search input specifically for FreeToGame listed items */}
               <div className="relative w-full md:w-80">
                 <input
+                  id="free-titles-search"
                   type="text"
                   placeholder="Locate free titles..."
                   value={freeSearchQuery}
                   onChange={(e) => setFreeSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-slate-900/40 border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 font-mono"
+                  aria-label="Search free-to-play MMO Shooter and RPG titles live"
+                  className="w-full pl-10 pr-4 py-2 bg-slate-900/40 border border-white/10 rounded-xl text-xs text-white placeholder-gray-450 focus:outline-none focus:ring-1 focus:ring-cyan-500 font-mono"
                 />
                 <Search className="w-4 h-4 text-[#00ffff] absolute left-3 top-2.5" />
               </div>
@@ -988,16 +990,18 @@ export default function App() {
                   <div className="absolute top-0 right-0 p-2.5 opacity-10">
                     <Settings className="w-12 h-12 text-cyan-400" />
                   </div>
-                  <h3 className="text-sm font-extrabold uppercase font-mono tracking-widest text-[#00ffff] mb-4">Input Gamer Comments & Feedback Vibe</h3>
+                  <label htmlFor="ai-lore-textarea" className="block text-sm font-extrabold uppercase font-mono tracking-widest text-[#00ffff] mb-4 cursor-pointer">Input Gamer Comments & Feedback Vibe</label>
                   <p className="text-xs text-gray-400 mb-4 font-sans leading-relaxed">
                     Type your gameplay vibes, feedback on favorite releases, developer likes, or gaming habits here. The Oracle will analyze your text alongside your favorites matrix.
                   </p>
                   <textarea
+                    id="ai-lore-textarea"
                     rows={4}
                     value={aiReportVibeInput}
                     onChange={(e) => setAiReportVibeInput(e.target.value)}
                     placeholder="e.g. I absolutely crave deeply atmospheric dark fantasy RPGs. I want extremely complex build customization, intricate plot choices, but hate tedious grinding loops. Visual immersion must be phenomenal..."
-                    className="w-full bg-slate-950/60 hover:bg-slate-950 border border-white/10 rounded-xl p-3 text-xs text-white uppercase placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-cyan-500 font-mono resize-none"
+                    aria-label="Input gamer comments and feedback vibe query for lore generator"
+                    className="w-full bg-slate-950/60 hover:bg-slate-950 border border-white/10 rounded-xl p-3 text-xs text-white uppercase placeholder-gray-650 focus:outline-none focus:ring-1 focus:ring-cyan-500 font-mono resize-none"
                   />
                 </div>
 

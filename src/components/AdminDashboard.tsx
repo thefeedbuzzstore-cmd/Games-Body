@@ -588,13 +588,15 @@ export default function AdminDashboard({ currentUser }: AdminDashboardProps) {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-mono uppercase text-gray-400 mb-1.5">Merchant Affiliate Link</label>
+                    <label htmlFor="merchant-affiliate-input" className="block text-[10px] font-mono uppercase text-gray-400 mb-1.5 cursor-pointer">Merchant Affiliate Link</label>
                     <input
+                      id="merchant-affiliate-input"
                       type="text"
                       required
                       value={formUrl}
                       onChange={(e) => setFormUrl(e.target.value)}
                       placeholder="https://store.steampowered.com/app/..."
+                      aria-label="Merchant Affiliate Link Input URL"
                       className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-1 focus:ring-cyan-500 font-mono placeholder-gray-500"
                     />
                   </div>
@@ -686,10 +688,12 @@ export default function AdminDashboard({ currentUser }: AdminDashboardProps) {
                   System Citizens Registry ({filteredUsers.length})
                 </h3>
                 <input
+                  id="admin-search-citizens"
                   type="text"
                   placeholder="Search citizens by name/email..."
                   value={searchUserQuery}
                   onChange={(e) => setSearchUserQuery(e.target.value)}
+                  aria-label="Search citizens registered by username or email address"
                   className="px-4 py-2.5 rounded-full bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500 w-full sm:w-80 font-mono placeholder-gray-550"
                 />
               </div>
@@ -843,14 +847,16 @@ export default function AdminDashboard({ currentUser }: AdminDashboardProps) {
                         </p>
                       </div>
                       <div className="mt-4 space-y-2">
-                        <label className="text-[10px] font-display text-gray-400 uppercase font-bold block">
+                        <label htmlFor="google-search-console-key" className="text-[10px] font-display text-gray-400 uppercase font-bold block cursor-pointer">
                           Value token (e.g. google-site-verification)
                         </label>
                         <input
+                          id="google-search-console-key"
                           type="text"
                           value={googleSearchConsoleKey}
                           onChange={(e) => setGoogleSearchConsoleKey(e.target.value)}
                           placeholder="google-site-verification=dH3g9X8..."
+                          aria-label="Google Site Verification Key Token Input"
                           className="w-full bg-white/5 border border-white/10 focus:border-[#00ffff]/50 rounded-lg py-2 px-3 text-sm font-mono text-gray-100 outline-none transition-all placeholder:text-gray-600"
                         />
                       </div>
@@ -868,14 +874,16 @@ export default function AdminDashboard({ currentUser }: AdminDashboardProps) {
                         </p>
                       </div>
                       <div className="mt-4 space-y-2">
-                        <label className="text-[10px] font-display text-gray-400 uppercase font-bold block">
+                        <label htmlFor="google-analytics-id" className="text-[10px] font-display text-gray-400 uppercase font-bold block cursor-pointer">
                           Measurement ID (G-XXXXXXXXXX)
                         </label>
                         <input
+                          id="google-analytics-id"
                           type="text"
                           value={googleAnalyticsId}
                           onChange={(e) => setGoogleAnalyticsId(e.target.value)}
                           placeholder="G-B7RE9Y8..."
+                          aria-label="Google Analytics Measurement ID Input"
                           className="w-full bg-white/5 border border-white/10 focus:border-[#00ffff]/50 rounded-lg py-2 px-3 text-sm font-mono text-gray-100 outline-none transition-all placeholder:text-gray-600"
                         />
                       </div>
@@ -893,14 +901,16 @@ export default function AdminDashboard({ currentUser }: AdminDashboardProps) {
                         </p>
                       </div>
                       <div className="mt-4 space-y-2">
-                        <label className="text-[10px] font-display text-gray-400 uppercase font-bold block">
+                        <label htmlFor="bing-webmaster-key" className="text-[10px] font-display text-gray-400 uppercase font-bold block cursor-pointer">
                           Validation Key (msvalidate.01)
                         </label>
                         <input
+                          id="bing-webmaster-key"
                           type="text"
                           value={bingWebmasterKey}
                           onChange={(e) => setBingWebmasterKey(e.target.value)}
                           placeholder="86F90E11DB2F9..."
+                          aria-label="Bing Webmaster Verification Hash Token Input"
                           className="w-full bg-white/5 border border-white/10 focus:border-[#00ffff]/50 rounded-lg py-2 px-3 text-sm font-mono text-gray-100 outline-none transition-all placeholder:text-gray-600"
                         />
                       </div>

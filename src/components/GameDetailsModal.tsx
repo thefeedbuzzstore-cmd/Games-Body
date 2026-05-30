@@ -625,7 +625,7 @@ export default function GameDetailsModal({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {freetoplayDetails.screenshots.slice(0, 3).map((src, idx) => (
                     <div key={idx} className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 group bg-slate-950 shadow-lg">
-                      <img src={src} alt="Live Gameplay feed" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" referrerPolicy="no-referrer" />
+                      <img src={src} alt="Live Gameplay feed" loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" referrerPolicy="no-referrer" />
                     </div>
                   ))}
                 </div>
