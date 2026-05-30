@@ -607,7 +607,7 @@ export default function App() {
                   className="glass-panel rounded-2xl overflow-hidden cursor-pointer glass-panel-hover flex flex-col group h-full"
                 >
                   <div className="relative aspect-video w-full overflow-hidden bg-slate-900">
-                    <img src={game.imageUrl} alt={`${game.title} card visual link`} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={game.imageUrl} alt={`${game.title} card visual link`} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute top-2 right-2 bg-black/70 p-1.5 rounded-lg border border-[#00ffff]/20 text-xs font-mono font-bold text-[#00ffff]">
                       ⭐ {game.rating}
                     </div>
@@ -744,7 +744,7 @@ export default function App() {
                           className="glass-panel rounded-2xl overflow-hidden cursor-pointer glass-panel-hover flex flex-col group h-full"
                         >
                           <div className="relative aspect-video w-full overflow-hidden bg-slate-900 border-b border-white/5">
-                            <img src={game.imageUrl} alt={game.title} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" referrerPolicy="no-referrer" />
+                            <img src={game.imageUrl} alt={`${game.title} cover preview artwork`} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" referrerPolicy="no-referrer" />
                             <div className="absolute top-2 right-2 bg-black/75 px-2 py-1 rounded-lg border border-cyan-400/20 text-xs font-mono font-bold text-[#00ffff]">
                               ⭐ {game.rating}
                             </div>
@@ -902,7 +902,9 @@ export default function App() {
                       <div className="relative aspect-video w-full overflow-hidden bg-slate-900 border-b border-white/5">
                         <img
                           src={deal.thumb}
-                          alt={deal.title}
+                          alt={`${deal.title} storefront deal thumbnail`}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
                           referrerPolicy="no-referrer"
                         />
@@ -1007,7 +1009,7 @@ export default function App() {
                   <div className="space-y-3">
                     {curatedGames.slice(0, 4).map((bgGame) => (
                       <div key={bgGame.id} className="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/5">
-                        <img src={bgGame.imageUrl} alt={bgGame.title} className="w-10 h-10 rounded-lg object-cover border border-white/10 flex-shrink-0" />
+                        <img src={bgGame.imageUrl} alt={`${bgGame.title} mini-artwork`} loading="lazy" decoding="async" className="w-10 h-10 rounded-lg object-cover border border-white/10 flex-shrink-0" />
                         <div className="min-w-0 flex-grow">
                           <h4 className="text-xs font-bold text-white uppercase truncate">{bgGame.title}</h4>
                           <span className="text-[9px] font-mono text-cyan-400 uppercase tracking-wider">{bgGame.genres.slice(0, 2).join(" | ")}</span>
@@ -1086,7 +1088,7 @@ export default function App() {
                       <div className="grid grid-cols-1 gap-4">
                         {aiReport.aiRecommendations && aiReport.aiRecommendations.map((rec: any) => (
                           <div key={rec.id} className="flex flex-col sm:flex-row gap-4 p-4 rounded-2xl bg-[#090b11] border border-white/5 hover:border-cyan-500/20 transition-all">
-                            <img src={rec.imageUrl} alt={rec.title} className="w-full sm:w-28 h-24 rounded-xl object-cover border border-white/10 flex-shrink-0" />
+                            <img src={rec.imageUrl} alt={`${rec.title} curation cover`} loading="lazy" decoding="async" className="w-full sm:w-28 h-24 rounded-xl object-cover border border-white/10 flex-shrink-0" />
                             <div className="flex-grow min-w-0">
                               <div className="flex justify-between items-start gap-2 mb-1.5">
                                 <h5 className="font-bold text-sm text-white uppercase truncate">{rec.title}</h5>
@@ -1179,7 +1181,7 @@ export default function App() {
                               className="relative aspect-video rounded-lg overflow-hidden group/mini cursor-pointer border border-[#1f2833]/40"
                               title={item.title}
                             >
-                              <img src={item.imageUrl} className="w-full h-full object-cover group-hover/mini:scale-110 transition-transform" />
+                              <img src={item.imageUrl} alt={`${item.title} list thumbnail`} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover/mini:scale-110 transition-transform" />
                               <div className="absolute inset-0 bg-black/40 group-hover/mini:bg-black/10 transition-colors flex items-end p-1.5Packed">
                                 <span className="text-[9px] font-bold text-white uppercase truncate block w-full leading-none">{item.title}</span>
                               </div>
@@ -1203,7 +1205,7 @@ export default function App() {
                  
                  {/* Wallpaper Backdrop */}
                  <div className="absolute inset-0 overflow-hidden z-0">
-                   <img src={heroGame.imageUrl} className="w-full h-full object-cover opacity-25 select-none pointer-events-none filter blur-[1px]" />
+                   <img src={heroGame.imageUrl} alt="" loading="eager" decoding="async" className="w-full h-full object-cover opacity-25 select-none pointer-events-none filter blur-[1px]" />
                    <div className="absolute inset-0 bg-gradient-to-t from-[#050508] via-transparent to-[#050508]/10"></div>
                    <div className="absolute inset-0 bg-gradient-to-r from-[#050508]/90 via-[#050508]/35 to-transparent"></div>
                  </div>
@@ -1241,7 +1243,7 @@ export default function App() {
                        </div>
                      </div>
                      <div className="lg:col-span-2 hidden lg:block aspect-video rounded-3xl border border-white/10 overflow-hidden shadow-2xl relative">
-                       <img src={heroGame.imageUrl} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                       <img src={heroGame.imageUrl} alt={`${heroGame.title} cover billboard`} loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                      </div>
                    </div>
                  </div>
@@ -1384,7 +1386,7 @@ export default function App() {
                         </div>
 
                         <div className="relative aspect-video w-full overflow-hidden bg-slate-900">
-                          <img src={game.imageUrl} alt={`${game.title} cover preview thumbnail`} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" />
+                          <img src={game.imageUrl} alt={`${game.title} cover preview thumbnail`} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#07090e]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                             <span className="text-xs font-bold font-mono text-[#00ffff] uppercase tracking-wider">Inspect parameters →</span>
                           </div>

@@ -585,6 +585,8 @@ export default function GameDetailsModal({
                 <img
                   src={game.imageUrl}
                   alt={game.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover/hero:scale-105 transition-transform duration-700"
                 />
               )}
@@ -681,10 +683,12 @@ export default function GameDetailsModal({
               {currentUser ? (
                 <form onSubmit={handleWriteComment} className="flex gap-2">
                   <input
+                    id="modal-discussion-input"
                     type="text"
                     required
                     value={commentInput}
                     onChange={(e) => setCommentInput(e.target.value)}
+                    aria-label="Enter discussion post or game review text"
                     placeholder="Enter discussion post or game review..."
                     className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-full text-white text-sm focus:outline-none focus:ring-1 focus:ring-cyan-500 font-sans placeholder-gray-500"
                   />
@@ -720,10 +724,17 @@ export default function GameDetailsModal({
                       return (
                         <div key={comment.id} className="p-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/10 transition-all space-y-3">
                           
-                          {/* User Header */}
+                           {/* User Header */}
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2.5">
-                              <img src={comment.avatarUrl} className="w-7 h-7 rounded-lg object-cover border border-white/10" referrerPolicy="no-referrer" />
+                              <img
+                                src={comment.avatarUrl}
+                                alt={`${comment.username || 'User'}'s character avatar`}
+                                loading="lazy"
+                                decoding="async"
+                                className="w-7 h-7 rounded-lg object-cover border border-white/10"
+                                referrerPolicy="no-referrer"
+                              />
                               <span className="font-bold text-xs text-gray-200">{comment.username}</span>
                             </div>
                             <span className="text-[9px] font-mono text-gray-500">
@@ -738,6 +749,7 @@ export default function GameDetailsModal({
                           <div className="flex items-center gap-4 text-xs font-mono text-gray-400 pl-1">
                             <button
                               onClick={() => handleLikeToggle(comment)}
+                              aria-label="Toggle helpful support like vote"
                               className={`flex items-center gap-1 transition-colors hover:text-cyan-400 cursor-pointer ${
                                 comment.likedBy.includes(currentUser?.uid || "") ? "text-cyan-400" : ""
                               }`}
@@ -751,6 +763,7 @@ export default function GameDetailsModal({
                                 if (!currentUser) onOpenAuth();
                                 else setActiveReplyId(comment.id || null);
                               }}
+                              aria-label="Reply to comment write dialogue"
                               className="hover:text-white transition-colors cursor-pointer"
                             >
                               Reply
@@ -760,6 +773,7 @@ export default function GameDetailsModal({
                               onClick={() => handleReportComment(comment)}
                               className="text-red-500/40 hover:text-red-500 transition-colors cursor-pointer flex items-center gap-0.5"
                               title="Flag comment as spam"
+                              aria-label="Flag comment containing spam content"
                             >
                               <AlertOctagon className="w-3 h-3" />
                               Report
@@ -774,6 +788,7 @@ export default function GameDetailsModal({
                                 required
                                 value={replyInput}
                                 onChange={(e) => setReplyInput(e.target.value)}
+                                aria-label="Write a direct nested comment response"
                                 placeholder="Enter reply..."
                                 className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-full text-xs text-white focus:outline-none"
                               />
@@ -791,7 +806,14 @@ export default function GameDetailsModal({
                             <div key={reply.id} className="pl-6 border-l border-white/10 pt-2 space-y-2">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                  <img src={reply.avatarUrl} className="w-5 h-5 rounded-md object-cover border border-white/5" referrerPolicy="no-referrer" />
+                                  <img
+                                    src={reply.avatarUrl}
+                                    alt={`${reply.username || 'User'}'s reply avatar`}
+                                    loading="lazy"
+                                    decoding="async"
+                                    className="w-5 h-5 rounded-md object-cover border border-white/5"
+                                    referrerPolicy="no-referrer"
+                                  />
                                   <span className="font-bold text-[11px] text-gray-300">{reply.username}</span>
                                 </div>
                                 <span className="text-[8px] font-mono text-gray-500">
@@ -1029,10 +1051,12 @@ export default function GameDetailsModal({
                   {/* Input controls */}
                   <div className="flex gap-2 mt-2 border-t border-white/10 pt-3">
                     <input
+                      id="modal-oracle-chat-input"
                       type="text"
                       value={chatInput}
                       onChange={(e) => setChatInput(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && handleSendOracleMessage()}
+                      aria-label="Ask oracle helper chat input query"
                       placeholder="Ask oracle helper..."
                       className="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs text-white focus:outline-none"
                     />

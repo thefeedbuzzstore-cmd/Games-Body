@@ -288,13 +288,14 @@ export default function AuthModal({ onClose, onSuccess, initialAdminView = false
                     type="button"
                     key={avatar.id}
                     onClick={() => setSelectedAvatar(avatar.url)}
+                    aria-label={`Select character portrait ${avatar.name}`}
                     className={`relative rounded-xl overflow-hidden border-2 aspect-square p-0.5 transition-all cursor-pointer ${
                       selectedAvatar === avatar.url
                         ? "border-cyan-400 scale-95 shadow-[0_0_15px_rgba(6,182,212,0.4)]"
                         : "border-transparent hover:border-white/20"
                     }`}
                   >
-                    <img src={avatar.url} alt={avatar.name} className="w-full h-full object-cover rounded-lg" />
+                    <img src={avatar.url} alt={avatar.name} loading="lazy" decoding="async" className="w-full h-full object-cover rounded-lg" />
                   </button>
                 ))}
               </div>
@@ -337,6 +338,7 @@ export default function AuthModal({ onClose, onSuccess, initialAdminView = false
             <button
               onClick={handleGoogleSignIn}
               type="button"
+              aria-label="Sign in utilizing Google Neural Identity authentication protocol"
               className="w-full py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white text-xs font-bold hover:border-white/30 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
               <svg className="w-4 h-4 mr-0.5 text-white" viewBox="0 0 24 24">

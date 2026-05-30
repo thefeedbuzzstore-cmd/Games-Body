@@ -711,6 +711,8 @@ export default function AdminDashboard({ currentUser }: AdminDashboardProps) {
                           <img
                             src={user.avatarUrl || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150"}
                             alt={user.username}
+                            loading="lazy"
+                            decoding="async"
                             className="w-9 h-9 rounded-lg object-cover border border-white/10"
                             referrerPolicy="no-referrer"
                           />
