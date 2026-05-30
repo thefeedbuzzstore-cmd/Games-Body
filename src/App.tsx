@@ -25,13 +25,12 @@ import {
 import { auth, db, handleFirestoreError, OperationType } from "./firebase";
 import { Game, UserProfile, CustomCollectionList } from "./types";
 import { curatedGames } from "./data/games";
-import { RAW_FIRESTORE_RULES } from "./data/rules_raw";
 
 // Sub-components
 import Navbar from "./components/Navbar";
-import AuthModal from "./components/AuthModal";
-import GameDetailsModal from "./components/GameDetailsModal";
-import AdminDashboard from "./components/AdminDashboard";
+const AuthModal = React.lazy(() => import("./components/AuthModal"));
+const GameDetailsModal = React.lazy(() => import("./components/GameDetailsModal"));
+const AdminDashboard = React.lazy(() => import("./components/AdminDashboard"));
 
 export default function App() {
   // Authentication states
@@ -533,7 +532,8 @@ export default function App() {
                       </div>
                       <div className="flex flex-wrap gap-2.5 pt-2 items-center">
                         <button
-                          onClick={() => {
+                          onClick={async () => {
+                            const { RAW_FIRESTORE_RULES } = await import("./data/rules_raw");
                             navigator.clipboard.writeText(RAW_FIRESTORE_RULES);
                             setCopiedRules(true);
                             setTimeout(() => setCopiedRules(false), 2000);
@@ -580,7 +580,9 @@ export default function App() {
         )}
 
         {currentView === "admin" && currentUser?.role === "admin" ? (
-          <AdminDashboard currentUser={currentUser} />
+          <React.Suspense fallback={<div className="p-12 text-center text-cyan-400 font-mono text-xs">Accessing Admin Control Console...</div>}>
+            <AdminDashboard currentUser={currentUser} />
+          </React.Suspense>
         ) : currentView === "favorites" ? (
           /* Favorites View Grid */
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 animate-in fade-in">
@@ -652,10 +654,12 @@ export default function App() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               {/* Category selector */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase font-mono text-gray-400">Genre / Category Code</label>
+                <label htmlFor="free-category-select" className="text-[10px] uppercase font-mono text-gray-400">Genre / Category Code</label>
                 <select
+                  id="free-category-select"
                   value={freeCategory}
                   onChange={(e) => setFreeCategory(e.target.value)}
+                  aria-label="Filter free games by genre or category"
                   className="w-full bg-slate-950 hover:bg-slate-900 text-gray-200 border border-white/10 px-3 py-2.5 rounded-xl text-xs font-semibold uppercase font-mono cursor-pointer focus:outline-none focus:ring-1 focus:ring-cyan-500"
                 >
                   <option value="all">All Genres</option>
@@ -674,10 +678,12 @@ export default function App() {
 
               {/* Platform selector */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase font-mono text-gray-400">Hardware Interface</label>
+                <label htmlFor="free-platform-select" className="text-[10px] uppercase font-mono text-gray-400">Hardware Interface</label>
                 <select
+                  id="free-platform-select"
                   value={freePlatform}
                   onChange={(e) => setFreePlatform(e.target.value)}
+                  aria-label="Filter free games by platform"
                   className="w-full bg-slate-950 hover:bg-slate-900 text-gray-200 border border-white/10 px-3 py-2.5 rounded-xl text-xs font-semibold uppercase font-mono cursor-pointer focus:outline-none focus:ring-1 focus:ring-cyan-500"
                 >
                   <option value="all">All Platforms</option>
@@ -688,11 +694,13 @@ export default function App() {
 
               {/* Sort by selector */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase font-mono text-gray-400">Sorting Registry</label>
+                <label htmlFor="free-sort-select" className="text-[10px] uppercase font-mono text-gray-400">Sorting Registry</label>
                 <select
+                  id="free-sort-select"
                   value={freeSortBy}
                   onChange={(e) => setFreeSortBy(e.target.value)}
-                  className="w-full bg-slate-950 hover:bg-slate-900 text-gray-200 border border-white/10 px-3 py-2.5 rounded-xl text-xs font-semibold uppercase font-mono cursor-pointer focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                  aria-label="Sort free games list"
+                  className="w-full bg-slate-950 hover:bg-slate-900 text-gray-200 border border-[#1f2833]/30 px-3 py-2.5 rounded-xl text-xs font-semibold uppercase font-mono cursor-pointer focus:outline-none focus:ring-1 focus:ring-cyan-500"
                 >
                   <option value="popularity">Popularity Index</option>
                   <option value="release-date">Release Date</option>
@@ -779,10 +787,12 @@ export default function App() {
               {/* Deal titles live query filtering */}
               <div className="relative w-full md:w-80">
                 <input
+                  id="deals-title-search"
                   type="text"
                   placeholder="Locate discounted titles..."
                   value={dealsSearchQuery}
                   onChange={(e) => setDealsSearchQuery(e.target.value)}
+                  aria-label="Locate discounted game titles"
                   className="w-full pl-10 pr-4 py-2 bg-slate-900/40 border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 font-mono"
                 />
                 <Search className="w-4 h-4 text-emerald-400 absolute left-3 top-2.5" />
@@ -793,10 +803,12 @@ export default function App() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               {/* Deal Store Filter */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase font-mono text-gray-400">Merchant Storefront Channel</label>
+                <label htmlFor="deals-store-select" className="text-[10px] uppercase font-mono text-gray-400">Merchant Storefront Channel</label>
                 <select
+                  id="deals-store-select"
                   value={dealsStoreID}
                   onChange={(e) => setDealsStoreID(e.target.value)}
+                  aria-label="Select merchant storefront channel"
                   className="w-full bg-slate-950 hover:bg-slate-900 text-gray-200 border border-white/10 px-3 py-2.5 rounded-xl text-xs font-semibold uppercase font-mono cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-500"
                 >
                   <option value="all">All Digital Stores</option>
@@ -808,27 +820,31 @@ export default function App() {
 
               {/* Price Ceiling */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase font-mono text-gray-400 flex justify-between">
+                <label htmlFor="deals-price-range" className="text-[10px] uppercase font-mono text-gray-400 flex justify-between">
                   <span>Price Cap protocol</span>
                   <span className="text-[#00ffc8] font-bold">${dealsMaxPrice} USD</span>
                 </label>
                 <input
+                  id="deals-price-range"
                   type="range"
                   min="5"
                   max="80"
                   step="5"
                   value={dealsMaxPrice}
                   onChange={(e) => setDealsMaxPrice(e.target.value)}
+                  aria-label="Filter by maximum price cap"
                   className="w-full accent-emerald-400 bg-slate-950 border border-white/10 rounded-xl cursor-pointer py-2 px-1 focus:outline-none"
                 />
               </div>
 
               {/* Deal sorting algorithm */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase font-mono text-gray-400">Sorting Registry</label>
+                <label htmlFor="deals-sort-select" className="text-[10px] uppercase font-mono text-gray-400">Sorting Registry</label>
                 <select
+                  id="deals-sort-select"
                   value={dealsSortBy}
                   onChange={(e) => setDealsSortBy(e.target.value)}
+                  aria-label="Sort active deals registry list"
                   className="w-full bg-slate-950 hover:bg-slate-900 text-gray-200 border border-white/10 px-3 py-2.5 rounded-xl text-xs font-semibold uppercase font-mono cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-500"
                 >
                   <option value="Savings">Savings Percent</option>
@@ -1244,10 +1260,12 @@ export default function App() {
                     <Search className="w-4 h-4" />
                   </span>
                   <input
+                    id="catalog-search-input"
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search titles, descriptions, genres..."
+                    aria-label="Search catalog games"
                     className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 hover:bg-white/10 transition-all font-mono"
                   />
                 </div>
@@ -1257,10 +1275,12 @@ export default function App() {
                   
                   {/* Select genre */}
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-400 uppercase text-[10px] font-bold tracking-wider">Genre:</span>
+                    <label htmlFor="catalog-genre-select" className="text-gray-400 uppercase text-[10px] font-bold tracking-wider">Genre:</label>
                     <select
+                      id="catalog-genre-select"
                       value={genreFilter}
                       onChange={(e) => setGenreFilter(e.target.value)}
+                      aria-label="Filter games by genre"
                       className="bg-[#050508] border border-white/10 rounded-lg text-white py-1.5 px-3 focus:outline-none focus:ring-1 focus:ring-cyan-400 cursor-pointer"
                     >
                       <option value="all">ALL</option>
@@ -1275,10 +1295,12 @@ export default function App() {
 
                   {/* Select Platform */}
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-400 uppercase text-[10px] font-bold tracking-wider">Platform:</span>
+                    <label htmlFor="catalog-platform-select" className="text-gray-400 uppercase text-[10px] font-bold tracking-wider">Platform:</label>
                     <select
+                      id="catalog-platform-select"
                       value={platformFilter}
                       onChange={(e) => setPlatformFilter(e.target.value)}
+                      aria-label="Filter games by platform"
                       className="bg-[#050508] border border-white/10 rounded-lg text-white py-1.5 px-3 focus:outline-none focus:ring-1 focus:ring-cyan-400 cursor-pointer"
                     >
                       <option value="all">ALL</option>
@@ -1291,10 +1313,12 @@ export default function App() {
 
                   {/* Rating or Alphabetical order */}
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-400 uppercase text-[10px] font-bold tracking-wider">Sort:</span>
+                    <label htmlFor="catalog-sort-select" className="text-gray-400 uppercase text-[10px] font-bold tracking-wider">Sort:</label>
                     <select
+                      id="catalog-sort-select"
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
+                      aria-label="Sort games list"
                       className="bg-[#050508] border border-white/10 rounded-lg text-white py-1.5 px-3 focus:outline-none focus:ring-1 focus:ring-cyan-400 cursor-pointer"
                     >
                       <option value="rating">RATING</option>
@@ -1408,23 +1432,27 @@ export default function App() {
 
       {/* Auth Gate modal */}
       {authModalOpen && (
-        <AuthModal
-          onClose={() => setAuthModalOpen(false)}
-          onSuccess={() => setAuthModalOpen(false)}
-          initialAdminView={authInitialAdmin}
-        />
+        <React.Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 font-mono text-cyan-400 text-xs">Opening Authentication Terminal...</div>}>
+          <AuthModal
+            onClose={() => setAuthModalOpen(false)}
+            onSuccess={() => setAuthModalOpen(false)}
+            initialAdminView={authInitialAdmin}
+          />
+        </React.Suspense>
       )}
 
       {/* Game Details Overlay Modal */}
       {selectedGame && (
-        <GameDetailsModal
-          game={selectedGame}
-          onClose={() => setSelectedGame(null)}
-          currentUser={currentUser}
-          onOpenAuth={() => setAuthModalOpen(true)}
-          userLists={currentUser ? communityLists.filter(l => l.userId === currentUser.uid) : []}
-          onRefreshLists={() => {}}
-        />
+        <React.Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 font-mono text-cyan-400 text-xs text-center">Launching Neural Interactive Environment...</div>}>
+          <GameDetailsModal
+            game={selectedGame}
+            onClose={() => setSelectedGame(null)}
+            currentUser={currentUser}
+            onOpenAuth={() => setAuthModalOpen(true)}
+            userLists={currentUser ? communityLists.filter(l => l.userId === currentUser.uid) : []}
+            onRefreshLists={() => {}}
+          />
+        </React.Suspense>
       )}
 
       {/* Playlists Creation Popup */}

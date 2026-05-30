@@ -207,6 +207,7 @@ export default function AuthModal({ onClose, onSuccess, initialAdminView = false
           <button
             onClick={onClose}
             className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+            aria-label="Close authentication modal"
           >
             <X className="w-5 h-5" />
           </button>
@@ -230,10 +231,11 @@ export default function AuthModal({ onClose, onSuccess, initialAdminView = false
         <form onSubmit={handleAuthSubmit} className="space-y-4">
           {isRegister && !isAdminMode && (
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1">
+              <label htmlFor="auth-username" className="block text-[11px] font-mono uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1">
                 <User className="w-3 h-3 text-cyan-400" /> Core Codename
               </label>
               <input
+                id="auth-username"
                 type="text"
                 required
                 value={username}
@@ -245,10 +247,11 @@ export default function AuthModal({ onClose, onSuccess, initialAdminView = false
           )}
 
           <div>
-            <label className="block text-[11px] font-mono uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1">
+            <label htmlFor="auth-email" className="block text-[11px] font-mono uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1">
               <Mail className="w-3 h-3 text-cyan-400" /> Email Address
             </label>
             <input
+              id="auth-email"
               type="email"
               required
               value={email}
@@ -259,10 +262,11 @@ export default function AuthModal({ onClose, onSuccess, initialAdminView = false
           </div>
 
           <div>
-            <label className="block text-[11px] font-mono uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1">
+            <label htmlFor="auth-password" className="block text-[11px] font-mono uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1">
               <Lock className="w-3 h-3 text-cyan-400" /> Neural Password
             </label>
             <input
+              id="auth-password"
               type="password"
               required
               value={password}

@@ -162,6 +162,7 @@ export default function Navbar({
                 id="notifications-toggle"
                 onClick={() => setShowNotifications(!showNotifications)}
                 className="p-2.5 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:text-cyan-400 hover:bg-white/10 transition-all cursor-pointer"
+                aria-label="Toggle notifications menu"
               >
                 <Bell className="w-5 h-5" />
                 <span className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-cyan-400 ring-2 ring-[#050508]"></span>
@@ -171,7 +172,7 @@ export default function Navbar({
                 <div className="absolute right-0 mt-3 w-80 rounded-2xl bg-[#050508]/90 border border-white/10 backdrop-blur-xl shadow-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-3">
                   <div className="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
                     <span className="text-xs font-bold uppercase tracking-wider text-white font-display">Neural Notifications</span>
-                    <button onClick={() => setShowNotifications(false)} className="text-gray-400 hover:text-white">
+                    <button onClick={() => setShowNotifications(false)} className="text-gray-400 hover:text-white" aria-label="Close notifications">
                       <X className="w-4 h-4" />
                     </button>
                   </div>
@@ -204,6 +205,7 @@ export default function Navbar({
                   onClick={onLogout}
                   className="p-2.5 rounded-xl border border-red-500/20 bg-red-500/10 text-red-400 hover:bg-red-500/25 transition-all cursor-pointer"
                   title="Logout Core"
+                  aria-label="Log out user profile session"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
@@ -226,6 +228,7 @@ export default function Navbar({
               <button
                 onClick={() => setView("admin")}
                 className="p-2 rounded-lg border border-red-500/30 text-red-500 animate-pulse"
+                aria-label="Open administration dashboard console"
               >
                 <Shield className="w-4 h-4" />
               </button>
@@ -233,6 +236,7 @@ export default function Navbar({
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg border border-[#1f2833]/60 bg-[#0e1219] text-gray-400 hover:text-white"
+              aria-label="Toggle responsive navigation controls"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
